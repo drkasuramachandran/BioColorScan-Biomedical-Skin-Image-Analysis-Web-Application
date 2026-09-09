@@ -1,0 +1,11 @@
+streamlit
+numpy
+opencv-python
+tifffile
+matplotlib
+Pillow
+pandas
+roifile
+scikit-image
+torch
+torchvision
