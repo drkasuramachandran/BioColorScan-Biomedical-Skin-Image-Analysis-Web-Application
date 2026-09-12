@@ -20,26 +20,521 @@ except ImportError:
 # ============================================================
 
 st.set_page_config(
-    page_title="BioColorScan - Integrated Skin Analysis",
+    page_title="BioColorScan | Biomedical Skin Analysis",
     page_icon="🔬",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-st.title("🔬 BioColorScan")
-st.markdown(
-    """
-    **Integrated Biomedical Skin Image Analysis**
+# ============================================================
+# BIOSCAN VISUAL DESIGN
+# ============================================================
 
-    This web application combines the original BioColorScan analysis
-    with the supplied Experimental A-E workflow and the Three Region
-    ImageJ-ROI ITA calculation workflow.
-    """
-)
+st.markdown("""
+<style>
 
-st.warning(
-    "Research/educational software only. ABCDE-style measurements and "
-    "scores are not a medical diagnosis."
-)
+/* ---------------------------------------------------------
+   GLOBAL PAGE
+--------------------------------------------------------- */
+
+.stApp {
+    background:
+        radial-gradient(circle at 10% 10%, rgba(0, 188, 212, 0.12), transparent 28%),
+        radial-gradient(circle at 90% 15%, rgba(124, 77, 255, 0.10), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(0, 150, 136, 0.08), transparent 35%),
+        #f5f8fc;
+}
+
+.main .block-container {
+    padding-top: 1.5rem;
+    padding-bottom: 3rem;
+    max-width: 1450px;
+}
+
+/* ---------------------------------------------------------
+   SIDEBAR
+--------------------------------------------------------- */
+
+section[data-testid="stSidebar"] {
+    background:
+        linear-gradient(
+            180deg,
+            #0b2545 0%,
+            #123b63 45%,
+            #0d5366 100%
+        );
+}
+
+section[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+section[data-testid="stSidebar"] .stNumberInput input {
+    color: #102a43 !important;
+    background: white !important;
+}
+
+section[data-testid="stSidebar"] [data-testid="stCaptionContainer"] {
+    color: #d8f3f7 !important;
+}
+
+/* ---------------------------------------------------------
+   MAIN HERO
+--------------------------------------------------------- */
+
+.biocolorscan-hero {
+    position: relative;
+    overflow: hidden;
+    padding: 2.2rem 2.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 24px;
+    background:
+        linear-gradient(
+            135deg,
+            #082f49 0%,
+            #0b6477 45%,
+            #1976a8 72%,
+            #5145cd 100%
+        );
+    box-shadow: 0 15px 40px rgba(13, 71, 102, 0.20);
+    color: white;
+}
+
+.biocolorscan-hero::before {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    right: -80px;
+    top: -100px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.10);
+}
+
+.biocolorscan-hero::after {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: 180px;
+    bottom: -120px;
+    border-radius: 50%;
+    background: rgba(0,229,255,0.12);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 2.7rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+.hero-subtitle {
+    font-size: 1.15rem;
+    margin-top: 0.45rem;
+    color: #dffaff;
+}
+
+.hero-description {
+    max-width: 900px;
+    margin-top: 1rem;
+    line-height: 1.65;
+    color: #edfaff;
+}
+
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+    margin-top: 1.3rem;
+}
+
+.hero-badge {
+    padding: 0.42rem 0.85rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.14);
+    border: 1px solid rgba(255,255,255,0.22);
+    color: white;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+/* ---------------------------------------------------------
+   RESEARCH NOTICE
+--------------------------------------------------------- */
+
+.research-notice {
+    padding: 1rem 1.3rem;
+    margin: 1rem 0 1.5rem 0;
+    border-radius: 14px;
+    background: linear-gradient(
+        90deg,
+        #fff8e1,
+        #fffdf5
+    );
+    border-left: 5px solid #ffb300;
+    color: #5d4b00;
+    box-shadow: 0 5px 18px rgba(90,70,0,0.07);
+}
+
+.research-notice strong {
+    color: #8a6200;
+}
+
+/* ---------------------------------------------------------
+   SECTION HEADINGS
+--------------------------------------------------------- */
+
+.section-title {
+    margin-top: 1.2rem;
+    margin-bottom: 0.8rem;
+    padding-left: 0.8rem;
+    border-left: 5px solid #00a8c6;
+    color: #123b63;
+    font-size: 1.45rem;
+    font-weight: 750;
+}
+
+.section-subtitle {
+    color: #607d8b;
+    margin-bottom: 1rem;
+}
+
+/* ---------------------------------------------------------
+   CARDS
+--------------------------------------------------------- */
+
+.bio-card {
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(33,150,243,0.10);
+    border-radius: 18px;
+    padding: 1.15rem 1.25rem;
+    box-shadow: 0 8px 25px rgba(30,70,100,0.08);
+    transition: all 0.2s ease;
+}
+
+.bio-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(30,70,100,0.13);
+}
+
+.card-icon {
+    font-size: 1.8rem;
+}
+
+.card-title {
+    font-size: 1.05rem;
+    font-weight: 750;
+    color: #123b63;
+    margin-top: 0.3rem;
+}
+
+.card-text {
+    color: #607d8b;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* ---------------------------------------------------------
+   METRICS
+--------------------------------------------------------- */
+
+div[data-testid="stMetric"] {
+    background: white;
+    border-radius: 15px;
+    padding: 0.85rem 1rem;
+    border: 1px solid rgba(0,150,136,0.10);
+    box-shadow: 0 5px 18px rgba(30,70,100,0.07);
+}
+
+div[data-testid="stMetricLabel"] {
+    color: #607d8b !important;
+}
+
+div[data-testid="stMetricValue"] {
+    color: #123b63 !important;
+    font-weight: 750;
+}
+
+/* ---------------------------------------------------------
+   TABS
+--------------------------------------------------------- */
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 5px;
+    background: rgba(255,255,255,0.75);
+    padding: 7px;
+    border-radius: 15px;
+    box-shadow: 0 5px 18px rgba(30,70,100,0.07);
+    overflow-x: auto;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 11px;
+    padding: 0.65rem 0.85rem;
+    font-weight: 650;
+    color: #486581;
+    border: none;
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(
+        135deg,
+        #087f8c,
+        #1976a8
+    ) !important;
+    color: white !important;
+}
+
+.stTabs [data-baseweb="tab-highlight"] {
+    display: none;
+}
+
+/* ---------------------------------------------------------
+   BUTTONS
+--------------------------------------------------------- */
+
+.stButton > button,
+.stDownloadButton > button {
+    border-radius: 11px;
+    border: 1px solid rgba(0,137,123,0.20);
+    font-weight: 650;
+    transition: all 0.2s ease;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 7px 18px rgba(0,120,150,0.16);
+}
+
+/* Primary buttons */
+
+.stButton > button[kind="primary"] {
+    background: linear-gradient(
+        135deg,
+        #00897b,
+        #1976a8
+    );
+    color: white;
+    border: none;
+}
+
+/* ---------------------------------------------------------
+   FILE UPLOADERS
+--------------------------------------------------------- */
+
+section[data-testid="stFileUploader"] {
+    background: rgba(255,255,255,0.85);
+    border-radius: 16px;
+    padding: 0.35rem;
+}
+
+section[data-testid="stFileUploader"] > div {
+    border-radius: 14px;
+}
+
+/* ---------------------------------------------------------
+   EXPANDERS
+--------------------------------------------------------- */
+
+.streamlit-expanderHeader {
+    border-radius: 12px !important;
+    font-weight: 650 !important;
+}
+
+/* ---------------------------------------------------------
+   DATAFRAMES
+--------------------------------------------------------- */
+
+[data-testid="stDataFrame"] {
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 5px 18px rgba(30,70,100,0.07);
+}
+
+/* ---------------------------------------------------------
+   INFO / SUCCESS / WARNING / ERROR
+--------------------------------------------------------- */
+
+div[data-testid="stAlert"] {
+    border-radius: 13px;
+}
+
+/* ---------------------------------------------------------
+   IMAGE CONTAINERS
+--------------------------------------------------------- */
+
+[data-testid="stImage"] {
+    border-radius: 14px;
+    overflow: hidden;
+}
+
+/* ---------------------------------------------------------
+   FOOTER
+--------------------------------------------------------- */
+
+.bio-footer {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    border-radius: 18px;
+    text-align: center;
+    background: linear-gradient(
+        135deg,
+        #0b2545,
+        #0d5366
+    );
+    color: #dffaff;
+}
+
+.bio-footer-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: white;
+}
+
+.bio-footer-text {
+    margin-top: 0.35rem;
+    font-size: 0.82rem;
+    color: #c7e9ef;
+}
+
+/* ---------------------------------------------------------
+   MOBILE
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+
+    .main .block-container {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .biocolorscan-hero {
+        padding: 1.5rem;
+        border-radius: 18px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+}
+
+</style>
+""", unsafe_allow_html=True)
+
+
+# ============================================================
+# BIOSCOLORSCAN HERO HEADER
+# ============================================================
+
+st.markdown("""
+<div class="biocolorscan-hero">
+    <div class="hero-content">
+
+        <div class="hero-title">
+            🔬 BioColorScan
+        </div>
+
+        <div class="hero-subtitle">
+            Integrated Biomedical Skin Image Analysis Platform
+        </div>
+
+        <div class="hero-description">
+            A research platform for quantitative skin image analysis,
+            CIELAB and ITA measurements, image preprocessing,
+            experimental colour correction, ROI analysis and
+            deep learning based lesion analysis.
+        </div>
+
+        <div class="hero-badges">
+            <span class="hero-badge">🎨 CIELAB / ITA</span>
+            <span class="hero-badge">🧪 Experiments A–E</span>
+            <span class="hero-badge">🎯 ImageJ ROI</span>
+            <span class="hero-badge">🤖 U-Net + DenseNet</span>
+            <span class="hero-badge">📊 Quantitative Analysis</span>
+        </div>
+
+    </div>
+</div>
+""", unsafe_allow_html=True)
+
+
+# ============================================================
+# RESEARCH NOTICE
+# ============================================================
+
+st.markdown("""
+<div class="research-notice">
+    <strong>⚠️ Research and educational software</strong><br>
+    BioColorScan is intended for research and educational use.
+    ABCDE-style measurements, scores and deep-learning predictions
+    are experimental outputs and are not a medical diagnosis.
+</div>
+""", unsafe_allow_html=True)
+
+
+# ============================================================
+# PLATFORM OVERVIEW CARDS
+# ============================================================
+
+c1, c2, c3, c4 = st.columns(4)
+
+with c1:
+    st.markdown("""
+    <div class="bio-card">
+        <div class="card-icon">🎨</div>
+        <div class="card-title">Colour Analysis</div>
+        <div class="card-text">
+            CIELAB, pixel-wise ITA and quantitative skin colour analysis.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with c2:
+    st.markdown("""
+    <div class="bio-card">
+        <div class="card-icon">🧪</div>
+        <div class="card-title">Experiments A–E</div>
+        <div class="card-text">
+            Illumination correction, L stretching and experimental hair removal.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with c3:
+    st.markdown("""
+    <div class="bio-card">
+        <div class="card-icon">🎯</div>
+        <div class="card-title">ROI Analysis</div>
+        <div class="card-text">
+            ImageJ three-region ROI analysis with pixel-wise ITA statistics.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+with c4:
+    st.markdown("""
+    <div class="bio-card">
+        <div class="card-icon">🤖</div>
+        <div class="card-title">Deep Learning</div>
+        <div class="card-text">
+            U-Net segmentation, DenseNet classification and Grad-CAM.
+        </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
 
 # ============================================================
 # COMMON IMAGE FUNCTIONS
@@ -2878,9 +3373,20 @@ with tabs[8]:
 # FOOTER
 # ============================================================
 
-st.divider()
+st.markdown("""
+<div class="bio-footer">
 
-st.caption(
-    "BioColorScan | Integrated Biomedical Skin Image Analysis | "
-    "Experiments A-E + Three-Region ROI | Research/Educational Use"
-)
+    <div class="bio-footer-title">
+        🔬 BioColorScan
+    </div>
+
+    <div class="bio-footer-text">
+        Integrated Biomedical Skin Image Analysis Platform
+        <br>
+        CIELAB • ITA • Experiments A–E • ImageJ ROI • Deep Learning
+        <br><br>
+        Research and Educational Use
+    </div>
+
+</div>
+""", unsafe_allow_html=True)
