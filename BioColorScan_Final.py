@@ -438,50 +438,37 @@ div[data-testid="stAlert"] {
 # BIOSCOLORSCAN HERO HEADER
 # ============================================================
 
-st.markdown("""
-<div class="biocolorscan-hero">
-    <div class="hero-content">
-
-        <div class="hero-title">
-            🔬 BioColorScan
-        </div>
-
-        <div class="hero-subtitle">
-            Integrated Biomedical Skin Image Analysis Platform
-        </div>
-
-        <div class="hero-description">
-            A research platform for quantitative skin image analysis,
-            CIELAB and ITA measurements, image preprocessing,
-            experimental colour correction, ROI analysis and
-            deep learning based lesion analysis.
-        </div>
-
-        <div class="hero-badges">
-            <span class="hero-badge">🎨 CIELAB / ITA</span>
-            <span class="hero-badge">🧪 Experiments A–E</span>
-            <span class="hero-badge">🎯 ImageJ ROI</span>
-            <span class="hero-badge">🤖 U-Net + DenseNet</span>
-            <span class="hero-badge">📊 Quantitative Analysis</span>
-        </div>
-
-    </div>
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    '<div class="biocolorscan-hero"><div class="hero-content">'
+    '<div class="hero-title">🔬 BioColorScan</div>'
+    '<div class="hero-subtitle">Integrated Biomedical Skin Image Analysis Platform</div>'
+    '<div class="hero-description">A research platform for quantitative skin image analysis, '
+    'CIELAB and ITA measurements, image preprocessing, experimental colour correction, '
+    'ROI analysis and deep learning based lesion analysis.</div>'
+    '<div class="hero-badges">'
+    '<span class="hero-badge">🎨 CIELAB / ITA</span>'
+    '<span class="hero-badge">🧪 Experiments A–E</span>'
+    '<span class="hero-badge">🎯 ImageJ ROI</span>'
+    '<span class="hero-badge">🤖 U-Net + DenseNet</span>'
+    '<span class="hero-badge">📊 Quantitative Analysis</span>'
+    '</div></div></div>',
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
 # RESEARCH NOTICE
 # ============================================================
 
-st.markdown("""
-<div class="research-notice">
-    <strong>⚠️ Research and educational software</strong><br>
-    BioColorScan is intended for research and educational use.
-    ABCDE-style measurements, scores and deep-learning predictions
-    are experimental outputs and are not a medical diagnosis.
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    '<div class="research-notice">'
+    '<strong>⚠️ Research and educational software</strong><br>'
+    'BioColorScan is intended for research and educational use. '
+    'ABCDE-style measurements, scores and deep-learning predictions '
+    'are experimental outputs and are not a medical diagnosis.'
+    '</div>',
+    unsafe_allow_html=True
+)
 
 
 # ============================================================
@@ -491,48 +478,44 @@ st.markdown("""
 c1, c2, c3, c4 = st.columns(4)
 
 with c1:
-    st.markdown("""
-    <div class="bio-card">
-        <div class="card-icon">🎨</div>
-        <div class="card-title">Colour Analysis</div>
-        <div class="card-text">
-            CIELAB, pixel-wise ITA and quantitative skin colour analysis.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="bio-card">'
+        '<div class="card-icon">🎨</div>'
+        '<div class="card-title">Colour Analysis</div>'
+        '<div class="card-text">CIELAB, pixel-wise ITA and quantitative skin colour analysis.</div>'
+        '</div>',
+        unsafe_allow_html=True
+    )
 
 with c2:
-    st.markdown("""
-    <div class="bio-card">
-        <div class="card-icon">🧪</div>
-        <div class="card-title">Experiments A–E</div>
-        <div class="card-text">
-            Illumination correction, L stretching and experimental hair removal.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="bio-card">'
+        '<div class="card-icon">🧪</div>'
+        '<div class="card-title">Experiments A–E</div>'
+        '<div class="card-text">Illumination correction, L stretching and experimental hair removal.</div>'
+        '</div>',
+        unsafe_allow_html=True
+    )
 
 with c3:
-    st.markdown("""
-    <div class="bio-card">
-        <div class="card-icon">🎯</div>
-        <div class="card-title">ROI Analysis</div>
-        <div class="card-text">
-            ImageJ three-region ROI analysis with pixel-wise ITA statistics.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="bio-card">'
+        '<div class="card-icon">🎯</div>'
+        '<div class="card-title">ROI Analysis</div>'
+        '<div class="card-text">ImageJ three-region ROI analysis with pixel-wise ITA statistics.</div>'
+        '</div>',
+        unsafe_allow_html=True
+    )
 
 with c4:
-    st.markdown("""
-    <div class="bio-card">
-        <div class="card-icon">🤖</div>
-        <div class="card-title">Deep Learning</div>
-        <div class="card-text">
-            U-Net segmentation, DenseNet classification and Grad-CAM.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown(
+        '<div class="bio-card">'
+        '<div class="card-icon">🤖</div>'
+        '<div class="card-title">Deep Learning</div>'
+        '<div class="card-text">U-Net segmentation, DenseNet classification and Grad-CAM.</div>'
+        '</div>',
+        unsafe_allow_html=True
+    )
 
 st.markdown("<div style='height:12px'></div>", unsafe_allow_html=True)
 
@@ -3373,20 +3356,14 @@ with tabs[8]:
 # FOOTER
 # ============================================================
 
-st.markdown("""
-<div class="bio-footer">
-
-    <div class="bio-footer-title">
-        🔬 BioColorScan
-    </div>
-
-    <div class="bio-footer-text">
-        Integrated Biomedical Skin Image Analysis Platform
-        <br>
-        CIELAB • ITA • Experiments A–E • ImageJ ROI • Deep Learning
-        <br><br>
-        Research and Educational Use
-    </div>
-
-</div>
-""", unsafe_allow_html=True)
+st.markdown(
+    '<div class="bio-footer">'
+    '<div class="bio-footer-title">🔬 BioColorScan</div>'
+    '<div class="bio-footer-text">'
+    'Integrated Biomedical Skin Image Analysis Platform<br>'
+    'CIELAB • ITA • Experiments A–E • ImageJ ROI • Deep Learning<br><br>'
+    'Research and Educational Use'
+    '</div>'
+    '</div>',
+    unsafe_allow_html=True
+)
