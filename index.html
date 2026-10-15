@@ -3,18 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skin Cancer Imaging Research Platform</title>
+    <meta name="theme-color" content="#111827">
+    <meta name="description" content="BioColorScan: Biomedical Skin Image Analysis Platform">
+    <title>BioColorScan | Skin Image Analysis</title>
+
     <style>
-        html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; }
-        iframe { width: 100%; height: 100vh; border: none; }
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #111827;
+        }
+
+        iframe {
+            display: block;
+            width: 100%;
+            height: 100vh;
+            height: 100dvh;
+            border: none;
+        }
+
+        .fallback {
+            position: fixed;
+            bottom: 10px;
+            right: 12px;
+            z-index: 10;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .fallback a {
+            color: #d1d5db;
+            text-decoration: none;
+            background: #1f2937;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
     </style>
 </head>
+
 <body>
-<!-- Replace USERNAME-SPACENAME with your Space, e.g. drkasuramachandran-skincancerimaging -->
-<iframe
-    src="https://USERNAME-SPACENAME.hf.space/?embed=true"
-    title="Skin Cancer Imaging Research Platform"
-    allow="clipboard-write">
-</iframe>
+    <iframe
+        src="https://biocolorscan.streamlit.app/?embed=true"
+        title="BioColorScan Biomedical Skin Image Analysis"
+        allow="clipboard-read; clipboard-write">
+    </iframe>
+
+    <div class="fallback">
+        <a href="https://biocolorscan.streamlit.app/" target="_blank" rel="noopener noreferrer">
+            Open BioColorScan directly
+        </a>
+    </div>
 </body>
 </html>
