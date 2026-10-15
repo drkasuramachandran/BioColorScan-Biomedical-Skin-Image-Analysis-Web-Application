@@ -1,0 +1,12 @@
+streamlit
+numpy
+pandas
+Pillow
+matplotlib
+opencv-python-headless
+roifile
+tifffile
+h5py
+huggingface_hub
+torch
+torchvision
